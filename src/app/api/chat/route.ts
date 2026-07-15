@@ -29,7 +29,8 @@ export async function POST(req: Request) {
 `;
 
     const result = streamText({
-      model: google('gemini-3.5-flash'),
+      // gemini-3.5-flash から 1.5-flash に変更
+      model: google('gemini-1.5-flash'), 
       prompt: systemPrompt,
     });
 

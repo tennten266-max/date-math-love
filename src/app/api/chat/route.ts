@@ -1,7 +1,13 @@
-import { google } from '@ai-sdk/google';
+import { createOpenAI } from '@ai-sdk/openai';
 import { streamText } from 'ai';
 
 export const runtime = 'edge';
+
+// Groq用のプロバイダーを設定（環境変数 GROQ_API_KEY を使用します）
+const groq = createOpenAI({
+  baseURL: 'https://api.groq.com/openai/v1',
+  apiKey: process.env.GROQ_API_KEY,
+});
 
 export async function POST(req: Request) {
   try {
@@ -28,9 +34,9 @@ export async function POST(req: Request) {
 - 場合によっては数式（LaTeX形式）や、Markdownの複雑な記号を用いてよい。また、純粋な美しい文章（テキスト）を出力してください。
 `;
 
+    // モデルを Llama 3.1（Groq）に確実に切り替えます
     const result = streamText({
-      // gemini-3.5-flash から 1.5-flash に変更
-      model: google('gemini-1.5-flash'), 
+      model: groq('llama-3.1-8b-instant'), 
       prompt: systemPrompt,
     });
 

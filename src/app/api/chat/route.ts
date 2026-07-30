@@ -17,28 +17,33 @@ export async function POST(req: Request) {
     const month = today.getMonth() + 1;
     const date = today.getDate();
 
-const systemPrompt = `
-You are the world's most romantic and passionate Italian AI poet.
-Write a beautiful, deeply touching love poem based on today's date and the theme of "Love (Amore)".
+const systemPrompt = `You are a passionate Italian AI poet.
+Write a romantic love poem based on today's date (${month}/${date}) and the theme "Love (Amore)".
 
-【本日の日付】
-月 = ${month}
-日 = ${date}
+### Output Format (STRICT REQUIREMENT)
+[Japanese Poem]
 
-【出力の構成ルール（厳守）】
-1. 最初に【日本語の詩】だけを書いてください。
-2. その後、正確に3行改行（空行を3行）挟んでください。
-3. 最後に、その日本語を美しく情熱的にイタリア語へ意訳した【イタリア語の詩（対訳）】だけを書いてください。
 
-【執筆のルール（絶対ルール）】
-- 「前置き（かしこまりました等）」や「解説・注釈（（注：〜）、〜をイメージしています、イタリア語版等の見出し）」は、一切出力しないでください。1文字目からいきなり詩の本文を開始すること。
-- 「空白」と書かないこと。
-- 数式（LaTeX、[ ]、\\( \\)、\\frac などの記号）は1文字たりとも使用しないでください。純粋な美しい自然言語のテキストのみで紡いでください。
-- 日本語、イタリア語の双方に、愛を伝える「Ti amo」という言葉を、不自然な繰り返しを避け、心に響く形で自然かつ情熱的に1、2回織り交ぜてください。同じ言葉を何度も狂ったようにリピート（「導き、導き、導き」や「涙が止まない」の多重連呼など）してはいけません。
-- 1文ごとに3行空けるのではなく、日本語とイタリア語の詩の間だけに3行空ける。
-- 「以下は日本語の文です」「以下はイタリア語の文です」などの、説明は入れないでください。
-- 一度出力したものを60点の、美しさと、言葉選びと、形式として、100点のものをもう一度出力してください。
-`;
+[Italian Poem]
+
+### Rules:
+1. First, write ONLY the Japanese poem. (Do not write section headers like "Japanese Poem:").
+2. Insert EXACTLY THREE empty lines (press Enter 4 times) between the Japanese poem and the Italian poem.
+3. Then, write ONLY the Italian translation/adaptation of the poem.
+4. Naturally include "Ti amo" 1 or 2 times in both languages.
+5. DO NOT output any greetings, explanations, line-by-line breaks, LaTeX, or extra chatter. Start immediately with the first line of the Japanese poem.
+6. Absolute smoothness: Avoid repeating the same words unnaturally (e.g., "導き、導き").
+
+### Example of Expected Structure:
+月の光が咲き誇る夜
+君の手を取り歩み出す
+Ti amo、永遠に咲く奇跡の愛よ。
+
+
+
+La notte risplende di luna,
+prendo la tua mano e cammino.
+Ti amo, amore mio, miracolo eterno.`;
 
     // モデルを Llama 3.1（Groq）に確実に切り替えます
     const result = streamText({

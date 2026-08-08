@@ -148,7 +148,7 @@ export default function Home() {
               })}
             </div>
             <p className="text-sm text-rose-900 font-medium tracking-wide">
-              <span className="text-xs text-rose-600 block sm:inline sm:mr-2 font-bold">本日の愛運：</span>
+              <span className="text-xs text-rose-600 block sm:inline sm:mr-2 font-bold">本日の恋愛運：</span>
               {fortune.label}
             </p>
           </div>

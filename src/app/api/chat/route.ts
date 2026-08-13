@@ -47,7 +47,7 @@ Ti amo, amore mio, miracolo eterno.`;
 
     // モデルを Llama 3.1（Groq）に確実に切り替えます
     const result = streamText({
-      model: groq('llama-3.1-8b-instant'), 
+      model: groq('openai/gpt-oss-20b'), 
       prompt: systemPrompt,
     });
 
